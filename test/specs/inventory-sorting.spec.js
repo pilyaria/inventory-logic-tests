@@ -1,5 +1,5 @@
-import LoginPage from "../../pageobjects/login.page.js";
-import InventoryPage from "../../pageobjects/inventory.page.js";
+import LoginPage from "../pageobjects/login.page.js";
+import InventoryPage from "../pageobjects/inventory.page.js";
 
 describe("UC-1 Inventory Sorting Validation", () => {
   it("should sort products by price from low to high", async () => {

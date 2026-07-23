@@ -1,6 +1,6 @@
-import { cartTestCases } from "../../data/cart-items.data.js";
-import LoginPage from "../../pageobjects/login.page.js";
-import InventoryPage from "../../pageobjects/inventory.page.js";
+import { cartTestCases } from "../data/cart-items.data.js";
+import LoginPage from "../pageobjects/login.page.js";
+import InventoryPage from "../pageobjects/inventory.page.js";
 
 describe("UC-2 Cart State Logic", () => {
   for (const testData of cartTestCases) {

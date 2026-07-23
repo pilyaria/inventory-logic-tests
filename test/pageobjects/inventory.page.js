@@ -65,9 +65,8 @@ class InventoryPage {
       const priceNumber = Number(priceWithoutDollar);
 
       prices.push(priceNumber);
-
-      return prices;
     }
+    return prices;
   }
 }
 
