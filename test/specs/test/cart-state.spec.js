@@ -1,4 +1,6 @@
 import { cartTestCases } from "../../data/cart-items.data.js";
+import LoginPage from "../../pageobjects/login.page.js";
+import InventoryPage from "../../pageobjects/inventory.page.js";
 
 describe("UC-2 Cart State Logic", () => {
   for (const testData of cartTestCases) {
@@ -6,27 +8,32 @@ describe("UC-2 Cart State Logic", () => {
       const { productsToAdd, productToRemove } = testData;
 
       // Given: the user opens the SauceDemo website
-      await browser.url("/");
+      //await browser.url("/");
+      await LoginPage.open();
 
       // 1. Login as standard_user
+      await LoginPage.login("standard_user", "secret_sauce");
+      /*
       const userNameInput = $('//input[@id="user-name"]');
       const passwordInput = $('//input[@id="password"]');
       const loginButton = $('//input[@id="login-button"]');
       await userNameInput.setValue("standard_user");
       await passwordInput.setValue("secret_sauce");
       await loginButton.click();
+      */
 
       // Then: the Products page should be opened
-      const pageTitle = $('//span[normalize-space()="Products"]');
-
+      //const pageTitle = $('//span[normalize-space()="Products"]');
       await expect(browser).toHaveUrl(/inventory\.html/);
-      await expect(pageTitle).toBeDisplayed();
-      await expect(pageTitle).toHaveText("Products");
+      await expect(InventoryPage.pageTitle).toBeDisplayed();
+      await expect(InventoryPage.pageTitle).toHaveText("Products");
 
       // 2. Add the products provided by the test data.
-      const cartBadge = $('//span[@data-test="shopping-cart-badge"]');
-      await expect(cartBadge).not.toExist();
+      //const cartBadge = $('//span[@data-test="shopping-cart-badge"]');
+      await expect(InventoryPage.cartBadge).not.toExist();
 
+      await InventoryPage.addProductsToCart(productsToAdd);
+      /*
       for (const productName of productsToAdd) {
         const productCard = $(
           `//div[@data-test="inventory-item"][.//div[@data-test="inventory-item-name" and normalize-space()="${productName}"]]`,
@@ -39,11 +46,16 @@ describe("UC-2 Cart State Logic", () => {
         await expect(addButton).toBeClickable();
         await addButton.click();
       }
+        */
 
       // 3. Verify that the badge matches the number of added products.
-      await expect(cartBadge).toHaveText(String(productsToAdd.length));
+      await expect(InventoryPage.cartBadge).toHaveText(
+        String(productsToAdd.length),
+      );
 
       // 4. Remove the product provided by the test data.
+      await InventoryPage.removeProductFromCart(productToRemove);
+      /*
       const productToRemoveCard = $(
         `//div[@data-test="inventory-item"][.//div[@data-test="inventory-item-name" and normalize-space()="${productToRemove}"]]`,
       );
@@ -53,14 +65,18 @@ describe("UC-2 Cart State Logic", () => {
 
       await expect(removeButton).toBeClickable();
       await removeButton.click();
-
+      */
+      await expect(InventoryPage.getAddButton(productToRemove)).toBeDisplayed();
+      /*
       const addButton = productToRemoveCard.$(
         './/button[normalize-space()="Add to cart"]',
       );
-      await expect(addButton).toBeDisplayed();
+      */
 
       // 5. Verify that the badge is decreased by one.
-      await expect(cartBadge).toHaveText(String(productsToAdd.length - 1));
+      await expect(InventoryPage.cartBadge).toHaveText(
+        String(productsToAdd.length - 1),
+      );
     });
   }
 });
