@@ -72,11 +72,23 @@ Expected Result:
 
 ## Project Structure
 
-test/
-├── specs/
-├── pageobjects/
-├── data/
-└── utils/
+```text
+inventory-logic-tests/
+├── test/
+│   ├── data/
+│   │   └── cart-items.data.js
+│   ├── pageobjects/
+│   │   ├── inventory.page.js
+│   │   └── login.page.js
+│   └── specs/
+│       ├── cart-state.spec.js
+│       └── inventory-sorting.spec.js
+├── .gitignore
+├── package.json
+├── package-lock.json
+├── README.md
+└── wdio.conf.js
+```
 
 ---
 
@@ -92,10 +104,51 @@ npm install
 npm run wdio
 ```
 
+Run only the inventory sorting test:
+
+```bash
+npm run test:sorting
+```
+
+Run only the cart state test:
+
+```bash
+npm run test:cart
+```
+
+## Allure Reports
+
+Running the tests creates Allure results in `allure-results/`.
+
+Generate the HTML report:
+
+```bash
+npm run allure:generate
+```
+
+Open the generated report:
+
+```bash
+npm run allure:open
+```
+
+Alternatively, generate and open a temporary report in one command:
+
+```bash
+npm run allure:serve
+```
+
+Allure requires Java to be installed. Generated results and reports are excluded
+from Git.
+
 ---
 
 ## Current Status
 
-- Project initialized
-- WebdriverIO configured
-- Test implementation in progress
+- UC-1 inventory sorting test implemented
+- UC-2 cart state test implemented with data-driven test cases
+- Page Object Model applied
+- Cross-browser execution configured for Microsoft Edge and Firefox
+- Separate commands added for running each test scenario
+- Allure result collection and HTML report generation configured
+- Generated test results and reports excluded from Git
