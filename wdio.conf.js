@@ -144,6 +144,15 @@ export const config = {
     "spec",
     CustomReporter,
     [
+      "junit",
+      {
+        outputDir: "./artifacts/junit-results",
+        outputFileFormat: function (options) {
+          return `results-${options.cid}.xml`;
+        },
+      },
+    ],
+    [
       "allure",
       {
         outputDir: "allure-results",

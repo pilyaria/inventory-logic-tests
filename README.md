@@ -176,7 +176,8 @@ npm run test:cart
 
 ## Allure Reports
 
-Allure reports were added in accordance with the completed course material.
+Allure reporting was added in accordance with the **Allure reporter** lesson
+from the training course.
 
 Running the tests creates Allure results in `allure-results/`.
 
@@ -203,6 +204,22 @@ from Git.
 
 ---
 
+## JUnit XML Reports
+
+JUnit XML reporting was added in accordance with the **Reporters overview**
+lesson from the training course.
+
+Running the tests creates one XML result file per WebdriverIO worker in
+`artifacts/junit-results/`. The file name includes the worker ID, for example:
+
+```text
+results-0-0.xml
+```
+
+Generated JUnit XML results are excluded from Git.
+
+---
+
 ## Current Status
 
 - UC-1 inventory sorting test implemented
@@ -211,5 +228,6 @@ from Git.
 - Cross-browser execution configured for Microsoft Edge and Firefox
 - Separate commands added for running each test scenario
 - Allure result collection and HTML report generation configured
+- JUnit XML result generation configured
 - Custom test logger displays each test name and duration
 - Generated test results and reports excluded from Git

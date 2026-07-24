@@ -4,6 +4,7 @@ node_modules/
 # Reports
 allure-results/
 allure-report/
+artifacts/junit-results/
 
 # Logs
 *.log
