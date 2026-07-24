@@ -7,6 +7,6 @@ export default class CustomReporter extends WDIOReporter {
 
   onTestEnd(test) {
     console.log(`Test: ${test.title}`);
-    console.log(`Duration: ${test._duration} ms`);
+    console.log(`Duration: ${test.duration} ms`);
   }
 }
