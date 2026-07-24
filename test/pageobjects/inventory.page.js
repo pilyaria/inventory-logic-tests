@@ -33,13 +33,13 @@ class InventoryPage {
 
   async addProductToCart(productName) {
     const addButton = this.getAddButton(productName);
-    await expect(addButton).toBeClickable();
+    await addButton.waitForClickable();
     await addButton.click();
   }
 
   async removeProductFromCart(productName) {
     const removeButton = this.getRemoveButton(productName);
-    await expect(removeButton).toBeClickable();
+    await removeButton.waitForClickable();
     await removeButton.click();
   }
 
