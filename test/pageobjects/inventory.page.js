@@ -32,13 +32,13 @@ class InventoryPage {
   }
 
   async addProductToCart(productName) {
-    const addButton = await this.getAddButton(productName);
+    const addButton = this.getAddButton(productName);
     await expect(addButton).toBeClickable();
     await addButton.click();
   }
 
   async removeProductFromCart(productName) {
-    const removeButton = await this.getRemoveButton(productName);
+    const removeButton = this.getRemoveButton(productName);
     await expect(removeButton).toBeClickable();
     await removeButton.click();
   }
@@ -55,8 +55,6 @@ class InventoryPage {
 
   async getPrices() {
     const priceElements = await this.priceElements;
-    expect(priceElements.length).toBeGreaterThan(0);
-
     const prices = [];
 
     for (let i = 0; i < priceElements.length; i++) {

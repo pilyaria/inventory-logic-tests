@@ -9,11 +9,13 @@ describe("UC-1 Inventory Sorting Validation", () => {
     // 1. Login as standard_user
     await LoginPage.login("standard_user", "secret_sauce");
 
+    // Given: the user is logged in
     // The Products page should be opened
     await expect(browser).toHaveUrl(/inventory\.html/);
     await expect(InventoryPage.pageTitle).toBeDisplayed();
     await expect(InventoryPage.pageTitle).toHaveText("Products");
 
+    // When: the user selects Price (low to high)
     // 2. Select Price (low to high)
     await InventoryPage.selectSortingByValue("lohi");
     await expect(InventoryPage.sortingDropdown).toHaveValue("lohi");
@@ -24,6 +26,7 @@ describe("UC-1 Inventory Sorting Validation", () => {
     expect(actualPrices.length).toBeGreaterThan(0);
     expect(actualPrices.every(Number.isFinite)).toBe(true);
 
+    // Then: the prices are displayed in ascending order
     // 4. Verify ascending sorting
     const expectedPrices = [...actualPrices].sort((a, b) => a - b);
     expect(actualPrices).toEqual(expectedPrices);

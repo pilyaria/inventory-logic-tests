@@ -13,25 +13,29 @@ describe("UC-2 Cart State Logic", () => {
       // 1. Login as standard_user
       await LoginPage.login("standard_user", "secret_sauce");
 
+      // Given: the user is logged in
       // The Products page should be opened
       await expect(browser).toHaveUrl(/inventory\.html/);
       await expect(InventoryPage.pageTitle).toBeDisplayed();
       await expect(InventoryPage.pageTitle).toHaveText("Products");
 
+      // When: the user adds two different products to the cart
       // 2. Add the products provided by the test data.
       await expect(InventoryPage.cartBadge).not.toExist();
       await InventoryPage.addProductsToCart(productsToAdd);
-      
+
+      // Then: the cart badge displays the number of added products
       // 3. Verify that the badge matches the number of added products.
       await expect(InventoryPage.cartBadge).toHaveText(
         String(productsToAdd.length),
       );
 
+      // When: the user removes one product from the cart
       // 4. Remove the product provided by the test data.
       await InventoryPage.removeProductFromCart(productToRemove);
       await expect(InventoryPage.getAddButton(productToRemove)).toBeDisplayed();
 
-
+      // Then: the cart badge is decreased by one
       // 5. Verify that the badge is decreased by one.
       await expect(InventoryPage.cartBadge).toHaveText(
         String(productsToAdd.length - 1),

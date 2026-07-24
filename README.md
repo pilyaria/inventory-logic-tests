@@ -60,6 +60,57 @@ Expected Result:
 
 ---
 
+## Implementation Details
+
+### Sorting Validation Logic
+
+The inventory sorting test selects the `Price (low to high)` option and verifies
+that the dropdown value is changed to `lohi`.
+
+The test then:
+
+1. Collects the text from every displayed product price.
+2. Removes the dollar sign from each price.
+3. Converts each price from a string to a number.
+4. Verifies that the resulting array is not empty and contains only valid
+   numbers.
+5. Creates a sorted copy of the collected array using numeric ascending order.
+6. Compares the original array with the sorted copy.
+
+The products are considered correctly sorted when both arrays are equal.
+Creating a copy prevents the original array from being changed during
+validation.
+
+### Cart State Logic
+
+The cart test starts by verifying that the cart badge does not exist. It adds
+two different products and checks that the badge value matches the number of
+added products. The test then removes one of those products, verifies that its
+`Add to cart` button is displayed again, and checks that the badge value is
+decreased by one.
+
+Product names and the product to remove are stored separately in
+`test/data/cart-items.data.js`. The test iterates over the exported test cases,
+which provides data-driven parametrization without hard-coding product names in
+the test logic.
+
+### Test Design
+
+- **Page Object Model:** page selectors and user actions are located in the
+  page object files, while validations remain in the spec files.
+- **BDD structure:** the scenarios use the Mocha BDD interface and
+  Given-When-Then comments to show the test flow.
+- **XPath locators:** products are selected by their visible names, and the
+  `Add to cart` and `Remove` buttons are located inside the matching product
+  card.
+- **Assertions:** the tests validate successful login, page state, the selected
+  sorting option, collected price data, sorting order, cart badge values, and
+  the state of the removed product.
+- **Parallel cross-browser execution:** WebdriverIO capabilities include
+  Microsoft Edge and Firefox. Both browsers execute the spec files in parallel.
+
+---
+
 ## Tech Stack
 
 - JavaScript
@@ -74,20 +125,22 @@ Expected Result:
 
 ```text
 inventory-logic-tests/
-├── test/
-│   ├── data/
-│   │   └── cart-items.data.js
-│   ├── pageobjects/
-│   │   ├── inventory.page.js
-│   │   └── login.page.js
-│   └── specs/
-│       ├── cart-state.spec.js
-│       └── inventory-sorting.spec.js
-├── .gitignore
-├── package.json
-├── package-lock.json
-├── README.md
-└── wdio.conf.js
+|-- reporters/
+|   `-- custom-reporter.js
+|-- test/
+|   |-- data/
+|   |   `-- cart-items.data.js
+|   |-- pageobjects/
+|   |   |-- inventory.page.js
+|   |   `-- login.page.js
+|   `-- specs/
+|       |-- cart-state.spec.js
+|       `-- inventory-sorting.spec.js
+|-- .gitignore
+|-- package.json
+|-- package-lock.json
+|-- README.md
+`-- wdio.conf.js
 ```
 
 ---
@@ -117,6 +170,8 @@ npm run test:cart
 ```
 
 ## Allure Reports
+
+Allure reports were added in accordance with the completed course material.
 
 Running the tests creates Allure results in `allure-results/`.
 
@@ -151,4 +206,5 @@ from Git.
 - Cross-browser execution configured for Microsoft Edge and Firefox
 - Separate commands added for running each test scenario
 - Allure result collection and HTML report generation configured
+- Custom test logger displays each test name and duration
 - Generated test results and reports excluded from Git

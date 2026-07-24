@@ -1,3 +1,5 @@
+import CustomReporter from "./reporters/custom-reporter.js";
+
 export const config = {
   //
   // ====================
@@ -57,6 +59,11 @@ export const config = {
     {
       browserName: "firefox",
       browserVersion: "stable",
+      "moz:firefoxOptions": {
+        log: {
+          level: "error",
+        },
+      },
     },
   ],
 
@@ -82,6 +89,9 @@ export const config = {
   //     webdriver: 'info',
   //     '@wdio/appium-service': 'info'
   // },
+  logLevels: {
+    geckodriver: "error",
+  },
   //
   // If you only want to run your tests until a specific amount of tests have failed use
   // bail (default is 0 - don't bail, run all tests).
@@ -132,6 +142,7 @@ export const config = {
   // see also: https://webdriver.io/docs/dot-reporter
   reporters: [
     "spec",
+    CustomReporter,
     [
       "allure",
       {
