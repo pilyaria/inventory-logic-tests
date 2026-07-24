@@ -153,6 +153,8 @@ Install dependencies
 npm install
 ```
 
+Run
+
 ```bash
 npm run wdio
 ```
