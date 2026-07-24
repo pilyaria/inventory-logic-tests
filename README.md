@@ -108,6 +108,9 @@ the test logic.
   the state of the removed product.
 - **Parallel cross-browser execution:** WebdriverIO capabilities include
   Microsoft Edge and Firefox. Both browsers execute the spec files in parallel.
+  The `maxInstances` option is set to `2` to limit execution to two concurrent
+  browser sessions, reducing system load while preserving parallel test
+  execution.
 
 ---
 
