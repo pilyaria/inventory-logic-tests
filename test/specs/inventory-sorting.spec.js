@@ -22,8 +22,10 @@ describe("UC-1 Inventory Sorting Validation", () => {
 
     // 3. Collect prices from all displayed products
     const actualPrices = await InventoryPage.getPrices();
+    const productCards = await InventoryPage.productCards;
 
     expect(actualPrices.length).toBeGreaterThan(0);
+    expect(actualPrices).toHaveLength(productCards.length);
     expect(actualPrices.every(Number.isFinite)).toBe(true);
 
     // Then: the prices are displayed in ascending order

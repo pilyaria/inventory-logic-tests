@@ -5,8 +5,8 @@ class InventoryPage {
   get sortingDropdown() {
     return $('//select[@data-test="product-sort-container"]');
   }
-  get priceElements() {
-    return $$('//div[@data-test="inventory-item-price"]');
+  get productCards() {
+    return $$('//div[@data-test="inventory-item"]');
   }
 
   get cartBadge() {
@@ -54,13 +54,27 @@ class InventoryPage {
   }
 
   async getPrices() {
-    const priceElements = await this.priceElements;
+    const productCards = await this.productCards;
     const prices = [];
 
-    for (let i = 0; i < priceElements.length; i++) {
-      const priceText = await priceElements[i].getText();
-      const priceWithoutDollar = priceText.replace("$", "");
-      const priceNumber = Number(priceWithoutDollar);
+    for (let i = 0; i < productCards.length; i++) {
+      const priceElement = productCards[i].$(
+        './/div[@data-test="inventory-item-price"]',
+      );
+
+      if (!(await priceElement.isExisting())) {
+        throw new Error(`Product at position ${i + 1} does not have a price`);
+      }
+
+      const priceText = (await priceElement.getText()).trim();
+
+      if (!/^\$\d+(?:\.\d{2})$/.test(priceText)) {
+        throw new Error(
+          `Product at position ${i + 1} has an invalid price: "${priceText}"`,
+        );
+      }
+
+      const priceNumber = Number(priceText.slice(1));
 
       prices.push(priceNumber);
     }
