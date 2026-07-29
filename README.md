@@ -94,9 +94,14 @@ validation.
 
 The cart test starts by verifying that the cart badge does not exist. It adds
 two different products and checks that the badge value matches the number of
-added products. The test then removes one of those products, verifies that its
-`Add to cart` button is displayed again, and checks that the badge value is
-decreased by one.
+added products. It also verifies that the button on every added product card
+changes from `Add to cart` to `Remove`.
+
+The test then removes one of those products and verifies that:
+
+1. The removed product displays the `Add to cart` button again.
+2. Every product that remains in the cart still displays the `Remove` button.
+3. The cart badge is decreased by one.
 
 Product names and the product to remove are stored separately in
 `test/data/cart-items.data.js`. The test iterates over the exported test cases,

@@ -29,11 +29,24 @@ describe("UC-2 Cart State Logic", () => {
       await expect(InventoryPage.cartBadge).toHaveText(
         String(productsToAdd.length),
       );
+      for (const productName of productsToAdd) {
+        await expect(
+          InventoryPage.getRemoveButton(productName),
+        ).toBeDisplayed();
+      }
 
       // When: the user removes one product from the cart
       // 4. Remove the product provided by the test data.
       await InventoryPage.removeProductFromCart(productToRemove);
       await expect(InventoryPage.getAddButton(productToRemove)).toBeDisplayed();
+      const remainingProducts = productsToAdd.filter(
+        (productName) => productName !== productToRemove,
+      );
+      for (const productName of remainingProducts) {
+        await expect(
+          InventoryPage.getRemoveButton(productName),
+        ).toBeDisplayed();
+      }
 
       // Then: the cart badge is decreased by one
       // 5. Verify that the badge is decreased by one.
