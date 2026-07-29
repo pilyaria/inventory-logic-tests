@@ -16,6 +16,7 @@ describe("UC-1 Inventory Sorting Validation", () => {
     await expect(InventoryPage.pageTitle).toHaveText("Products");
 
     const productNamesBeforeSorting = await InventoryPage.getProductNames();
+    const pricesBeforeSorting = await InventoryPage.getPrices();
 
     // When: the user selects Price (low to high)
     // 2. Select Price (low to high)
@@ -23,20 +24,23 @@ describe("UC-1 Inventory Sorting Validation", () => {
     await expect(InventoryPage.sortingDropdown).toHaveValue("lohi");
 
     // 3. Collect prices from all displayed products
-    const actualPrices = await InventoryPage.getPrices();
+    const pricesAfterSorting = await InventoryPage.getPrices();
     const productCards = await InventoryPage.productCards;
     const productNamesAfterSorting = await InventoryPage.getProductNames();
 
-    expect(actualPrices.length).toBeGreaterThan(0);
-    expect(actualPrices).toHaveLength(productCards.length);
-    expect(actualPrices.every(Number.isFinite)).toBe(true);
+    expect(pricesAfterSorting.length).toBeGreaterThan(0);
+    expect(pricesAfterSorting).toHaveLength(productCards.length);
+    expect(pricesAfterSorting.every(Number.isFinite)).toBe(true);
     expect([...productNamesAfterSorting].sort()).toEqual(
       [...productNamesBeforeSorting].sort(),
+    );
+    expect([...pricesAfterSorting].sort((a, b) => a - b)).toEqual(
+      [...pricesBeforeSorting].sort((a, b) => a - b),
     );
 
     // Then: the prices are displayed in ascending order
     // 4. Verify ascending sorting
-    const expectedPrices = [...actualPrices].sort((a, b) => a - b);
-    expect(actualPrices).toEqual(expectedPrices);
+    const expectedPrices = [...pricesAfterSorting].sort((a, b) => a - b);
+    expect(pricesAfterSorting).toEqual(expectedPrices);
   });
 });

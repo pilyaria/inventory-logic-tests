@@ -64,21 +64,30 @@ Expected Result:
 
 ### Sorting Validation Logic
 
-The inventory sorting test selects the `Price (low to high)` option and verifies
+The inventory sorting test first collects the product names and prices displayed
+before sorting. It then selects the `Price (low to high)` option and verifies
 that the dropdown value is changed to `lohi`.
 
 The test then:
 
-1. Collects the text from every displayed product price.
-2. Removes the dollar sign from each price.
-3. Converts each price from a string to a number.
-4. Verifies that the resulting array is not empty and contains only valid
-   numbers.
-5. Creates a sorted copy of the collected array using numeric ascending order.
-6. Compares the original array with the sorted copy.
+1. Processes every displayed product card individually.
+2. Verifies that each product card contains a price.
+3. Verifies that each price has the expected `$0.00` format.
+4. Removes the dollar sign and converts each price to a number.
+5. Verifies that the price array is not empty, contains only finite numbers, and
+   has the same length as the product list.
+6. Collects the product names and prices again after sorting.
+7. Compares the product names before and after sorting without considering their
+   order.
+8. Compares the numeric prices before and after sorting without considering their
+   order.
+9. Creates a numerically sorted copy of the prices displayed after sorting.
+10. Compares the displayed price order with the sorted copy.
 
-The products are considered correctly sorted when both arrays are equal.
-Creating a copy prevents the original array from being changed during
+The products are considered correctly sorted when the displayed prices match the
+numerically sorted copy. The additional comparisons confirm that sorting changes
+only the display order: no product or price is added, removed, or changed.
+Creating copies prevents the original arrays from being modified during
 validation.
 
 ### Cart State Logic
