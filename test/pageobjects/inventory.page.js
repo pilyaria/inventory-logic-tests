@@ -53,6 +53,21 @@ class InventoryPage {
     await this.sortingDropdown.selectByAttribute("value", value);
   }
 
+  async getProductNames() {
+    const productCards = await this.productCards;
+    const productNames = [];
+
+    for (const productCard of productCards) {
+      const productName = await productCard
+        .$('.//div[@data-test="inventory-item-name"]')
+        .getText();
+
+      productNames.push(productName.trim());
+    }
+
+    return productNames;
+  }
+
   async getPrices() {
     const productCards = await this.productCards;
     const prices = [];
