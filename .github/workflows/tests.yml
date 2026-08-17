@@ -14,14 +14,17 @@ on:
 jobs:
   test:
     name: Tests - ${{ matrix.browser }}
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     strategy:
       fail-fast: false
       matrix:
-        browser:
-          - firefox
-          - MicrosoftEdge
+        include:
+          - browser: firefox
+            os: ubuntu-latest
+
+          - browser: MicrosoftEdge
+            os: windows-latest
 
     steps:
       - name: Checkout repository
