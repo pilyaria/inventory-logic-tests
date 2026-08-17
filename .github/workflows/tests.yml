@@ -13,7 +13,15 @@ on:
 
 jobs:
   test:
+    name: Tests - ${{ matrix.browser }}
     runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        browser:
+          - firefox
+          - MicrosoftEdge
 
     steps:
       - name: Checkout repository
@@ -31,7 +39,7 @@ jobs:
       - name: Run WebdriverIO tests
         run: npm run wdio
         env:
-          WDIO_BROWSER: firefox
+          WDIO_BROWSER: ${{ matrix.browser }}
 
       - name: Generate Allure report
         if: always()
@@ -41,12 +49,12 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-report
+          name: allure-report-${{ matrix.browser }}
           path: allure-report/
 
       - name: Upload JUnit results
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: junit-results
+          name: junit-results-${{ matrix.browser }}
           path: artifacts/junit-results/
