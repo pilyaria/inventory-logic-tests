@@ -1,5 +1,24 @@
 # Inventory Logic Tests
 
+[![WebdriverIO Tests](https://github.com/pilyaria/inventory-logic-tests/actions/workflows/tests.yml/badge.svg)](https://github.com/pilyaria/inventory-logic-tests/actions/workflows/tests.yml)
+
+[![Live Allure Report](https://img.shields.io/badge/Allure-Live%20Report-brightgreen?logo=allure)](https://pilyaria.github.io/inventory-logic-tests/)
+
+![Firefox](https://img.shields.io/badge/Firefox-tested-orange?logo=firefox-browser)
+![Microsoft Edge](https://img.shields.io/badge/Microsoft%20Edge-tested-blue?logo=microsoftedge)
+![WebdriverIO](https://img.shields.io/badge/WebdriverIO-Automation-EA5906?logo=webdriverio)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow?logo=javascript)
+
+## 🏆 Test Run Summary
+
+- ✅ Automated CI execution with GitHub Actions
+- ✅ Cross-browser testing in Firefox and Microsoft Edge
+- ✅ 2 test scenarios executed in both browsers
+- ✅ 4 successful test executions in the latest combined Allure report
+- ✅ Combined Allure report published via GitHub Pages
+
+👉 [View Live Allure Report](https://pilyaria.github.io/inventory-logic-tests/)
+
 ## Project Overview
 
 This project contains automated UI tests for the SauceDemo application.
@@ -242,6 +261,11 @@ Generated JUnit XML results are excluded from Git.
 - Cross-browser execution configured for Microsoft Edge and Firefox
 - Separate commands added for running each test scenario
 - Allure result collection and HTML report generation configured
-- JUnit XML result generation configured
-- Custom test logger displays each test name and duration
+- JUnit XML report generation configured
+- Custom test logger displays each test name and execution duration
 - Generated test results and reports excluded from Git
+- GitHub Actions CI configured
+- Firefox tests run on an Ubuntu GitHub-hosted runner
+- Microsoft Edge tests run on a Windows GitHub-hosted runner
+- Allure results from both browsers merged into a single report
+- Combined Allure report automatically published to GitHub Pages
