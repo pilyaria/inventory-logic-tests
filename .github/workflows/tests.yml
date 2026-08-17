@@ -44,16 +44,12 @@ jobs:
         env:
           WDIO_BROWSER: ${{ matrix.browser }}
 
-      - name: Generate Allure report
-        if: always()
-        run: npm run allure:generate
-
-      - name: Upload Allure report
+      - name: Upload Allure results
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-report-${{ matrix.browser }}
-          path: allure-report/
+          name: allure-results-${{ matrix.browser }}
+          path: allure-results/
 
       - name: Upload JUnit results
         if: always()
